@@ -36,7 +36,7 @@ def foo(url):
         tempDict['Discount']=dlDicts[val][0]
         if(len(dlDicts[val])>=3):
             tempDict['Original Price']=dlDicts[val][1]
-            tempDict['New Price']=dlDicts[val][2]
+            tempDict['Current Price']=dlDicts[val][2]
         else:
             tempDict['Current Price']=dlDicts[val][1]
         dlDicts[val]=tempDict
