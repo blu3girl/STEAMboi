@@ -20,7 +20,7 @@ def foo(url):
         tempDict['Discount']=products[val][0]
         if(len(products[val])>=3):
             tempDict['Original Price']=products[val][1]
-            tempDict['New Price']=products[val][2]
+            tempDict['Current Price']=products[val][2]
         else:
             tempDict['Current Price']=products[val][1]
         products[val]=tempDict
