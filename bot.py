@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests as reqs
-def foo(url):
+def getInfo(url):
+    if "https://store.steampowered.com/app/" not in url:
+        return None
     site = reqs.get(url)
     soup = BeautifulSoup(site.content, 'html.parser')
     prices=soup.findAll("div", {"class": "game_area_purchase_game_wrapper"})
@@ -43,6 +45,12 @@ def foo(url):
     products['dlc']=dlDicts
     return products
     
-# foo("https://store.steampowered.com/app/578650/The_Outer_Worlds/")
-# foo("https://store.steampowered.com/app/625960/Stoneshard/")
-print(foo("https://store.steampowered.com/app/678960/CODE_VEIN/"))
+def find(string):
+    search="https://store.steampowered.com/search/?term="+string
+    site = reqs.get(search)
+    soup = BeautifulSoup(site.content, 'html.parser')
+    urls = soup.findAll('a')
+    for url in urls:
+        if 'https://store.steampowered.com/app' in url['href']:
+            return getInfo(url['href'])
+    return None
