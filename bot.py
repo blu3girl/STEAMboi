@@ -35,12 +35,17 @@ def getInfo(url):
         dlDicts[val]=text[i].split('$')
         dlDicts[val][0]= dlDicts[val][0].split('-')[-1]
         tempDict={}
-        tempDict['Discount']=dlDicts[val][0]
+        print(val, dlDicts[val])
+       
         if(len(dlDicts[val])>=3):
+            tempDict['Discount']=dlDicts[val][0]
             tempDict['Original Price']=dlDicts[val][1]
             tempDict['Current Price']=dlDicts[val][2]
-        else:
+        elif(len(dlDicts[val])==2):
+            tempDict['Discount']=dlDicts[val][0]
             tempDict['Current Price']=dlDicts[val][1]
+        else:
+            tempDict['Current Price']=dlDicts[val][0]
         dlDicts[val]=tempDict
     products['dlc']=dlDicts
     return products
