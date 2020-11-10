@@ -8,6 +8,7 @@ def getInfo(url):
     prices=soup.findAll("div", {"class": "game_area_purchase_game_wrapper"})
     products={}
     products['url']=url
+
     gameDict={}
     for price in prices:
         text=price.get_text().replace('\t',"").split('\n')
@@ -35,7 +36,13 @@ def getInfo(url):
             tempDict['Current Price']=gameDict[val][0]
         gameDict[val]=tempDict
     products['game_options']=gameDict
-    dlcs=soup.find('div', {'class': 'game_area_dlc_section'}).find('div', {'class': 'tableView'})
+
+    dlcs=soup.find('div', {'class': 'game_area_dlc_section'})
+    if dlcs == None:
+        return products
+    dlcs = dlcs.find('div', {'class': 'tableView'})
+    if dlcs == None:
+        return products
     dlDicts={}
     text = dlcs.get_text().replace('\t',"").split('\n')
     text = [t.strip() for t in text if t.strip()!='']
