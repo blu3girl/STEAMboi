@@ -3,9 +3,9 @@
 
 <h3>to use the bot:</h3>
 
-command: !check \<url\>
+command: !price \<url\>
 
-where \<url\> is a link to a steam game (example: https://store.steampowered.com/app/440/Team_Fortress_2/) to find out what discounts the game has, if any.
+where \<url\> is a link to a steam game (example: https://store.steampowered.com/app/440/Team_Fortress_2/) to find out the current price and what discounts the game has, if any.
  
  
  
