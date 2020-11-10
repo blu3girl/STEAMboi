@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests as reqs
 def getInfo(url):
     if "https://store.steampowered.com/app/" not in url:
-        return None
+        return find(url.strip('/').split('/')[-1])
     site = reqs.get(url)
     soup = BeautifulSoup(site.content, 'html.parser')
     prices=soup.findAll("div", {"class": "game_area_purchase_game_wrapper"})
@@ -44,7 +44,6 @@ def getInfo(url):
         dlDicts[val]=text[i].split('$')
         dlDicts[val][0]= dlDicts[val][0].split('-')[-1]
         tempDict={}
-        print(val, dlDicts[val])
        
         if(len(dlDicts[val])>=3):
             tempDict['Discount']=dlDicts[val][0]
