@@ -1,9 +1,7 @@
 # CapsherDiscordBot
-A submission for the Fall 2020 Discord Bot challenge
+A submission for the Fall 2020 Capsher Discord Bot challenge
 
-
-bs4 and requests libraries are needed to run this bot
-
-pip3 install BeautifulSoup4
-
-pip3 install requests
+to use the bot:
+type !check <url> where <url> is a link to a steam game (example: https://store.steampowered.com/app/440/Team_Fortress_2/) to find out what discounts the game has, if any.
+ 
+type !search <phrase> to search the steam catalogue for the phrase and find out what discounts the first result has, if any.
