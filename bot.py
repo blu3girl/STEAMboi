@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests as reqs
 def getInfo(url):
     if "https://store.steampowered.com/app/" not in url:
-        return None
+        return find(url)
     site = reqs.get(url)
     soup = BeautifulSoup(site.content, 'html.parser')
     prices=soup.findAll("div", {"class": "game_area_purchase_game_wrapper"})
@@ -52,5 +52,6 @@ def find(string):
     urls = soup.findAll('a')
     for url in urls:
         if 'https://store.steampowered.com/app' in url['href']:
+            print(url['href'])
             return getInfo(url['href'])
     return None
