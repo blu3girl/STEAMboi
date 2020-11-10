@@ -7,6 +7,7 @@ def getInfo(url):
     soup = BeautifulSoup(site.content, 'html.parser')
     prices=soup.findAll("div", {"class": "game_area_purchase_game_wrapper"})
     products={}
+    products['url']=url
     for price in prices:
         text=price.get_text().replace('\t',"").split('\n')
         text = [t.strip() for t in text if t.strip()!='']
@@ -17,14 +18,20 @@ def getInfo(url):
                 break
         val = text[0][4:]
         products[val]=cost
+        if(products[val]==""):
+            continue
         products[val][0]=products[val][0].split('-')[-1]
         tempDict={}
         tempDict['Discount']=products[val][0]
         if(len(products[val])>=3):
+            tempDict['Discount']=products[val][0]
             tempDict['Original Price']=products[val][1]
             tempDict['Current Price']=products[val][2]
-        else:
+        elif(len(products[val])==2):
+            tempDict['Discount']=products[val][0]
             tempDict['Current Price']=products[val][1]
+        else:
+            tempDict['Current Price']=products[val][0]
         products[val]=tempDict
     dlcs=soup.find('div', {'class': 'game_area_dlc_section'}).find('div', {'class': 'tableView'})
     dlDicts={}
