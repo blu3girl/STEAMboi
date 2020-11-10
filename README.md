@@ -1,5 +1,5 @@
 # CapsherDiscordBot
-<h1>A submission for the Fall 2020 Capsher Discord Bot challenge</h1>
+<h2>A submission for the Fall 2020 Capsher Discord Bot challenge</h2>
 
 <h3>to use the bot:</h3>
 
