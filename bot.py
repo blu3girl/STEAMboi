@@ -51,7 +51,6 @@ def getInfo(url):
         dlDicts[val]=text[i].split('$')
         dlDicts[val][0]= dlDicts[val][0].split('-')[-1]
         tempDict={}
-        print(val, dlDicts[val])
        
         if(len(dlDicts[val])>=3):
             tempDict['Discount']=dlDicts[val][0]

@@ -5,7 +5,7 @@
 
 command: !price \<url\>
 
-where \<url\> is a link to a steam game (example: https://store.steampowered.com/app/440/Team_Fortress_2/) to find out the current price and what discounts the game has, if any.
+where \<url\> is a link to a steam game (example: https://store.steampowered.com/app/105600/Terraria/) to find out the current price and what discounts the game has, if any.
  
  
  
