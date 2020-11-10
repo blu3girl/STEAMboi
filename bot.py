@@ -7,6 +7,8 @@ def getInfo(url):
     soup = BeautifulSoup(site.content, 'html.parser')
     prices=soup.findAll("div", {"class": "game_area_purchase_game_wrapper"})
     products={}
+    products['url']=url
+    gameDict={}
     for price in prices:
         text=price.get_text().replace('\t',"").split('\n')
         text = [t.strip() for t in text if t.strip()!='']
@@ -16,16 +18,23 @@ def getInfo(url):
                 cost=x.split('$')
                 break
         val = text[0][4:]
-        products[val]=cost
-        products[val][0]=products[val][0].split('-')[-1]
+        gameDict[val]=cost
+        if(gameDict[val]==""):
+            continue
+        gameDict[val][0]=gameDict[val][0].split('-')[-1]
         tempDict={}
-        tempDict['Discount']=products[val][0]
-        if(len(products[val])>=3):
-            tempDict['Original Price']=products[val][1]
-            tempDict['Current Price']=products[val][2]
+        tempDict['Discount']=gameDict[val][0]
+        if(len(gameDict[val])>=3):
+            tempDict['Discount']=gameDict[val][0]
+            tempDict['Original Price']=gameDict[val][1]
+            tempDict['Current Price']=gameDict[val][2]
+        elif(len(gameDict[val])==2):
+            tempDict['Discount']=gameDict[val][0]
+            tempDict['Current Price']=gameDict[val][1]
         else:
-            tempDict['Current Price']=products[val][1]
-        products[val]=tempDict
+            tempDict['Current Price']=gameDict[val][0]
+        gameDict[val]=tempDict
+    products['game_options']=gameDict
     dlcs=soup.find('div', {'class': 'game_area_dlc_section'}).find('div', {'class': 'tableView'})
     dlDicts={}
     text = dlcs.get_text().replace('\t',"").split('\n')
