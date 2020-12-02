@@ -85,4 +85,8 @@ async def sale(ctx, *args):
     
     await ctx.send(response)
 
+@bot.command()
+async def on_message(message):
+    await message.author.send("hi")
+
 bot.run(TOKEN)
