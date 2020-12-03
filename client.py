@@ -179,5 +179,9 @@ async def on_message(message):
         print("other type of channel")
         return
 
+@bot.event
+async def on_reaction_add(reaction, user):
+    await reaction.message.add_reaction(reaction.emoji)
+
 
 bot.run(TOKEN)
