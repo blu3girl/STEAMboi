@@ -91,18 +91,51 @@ async def sale(ctx, *args):
 async def on_message(message):
     if message.author == bot.user:
         return
+    
+    carol = await bot.fetch_user(549436545019674626)
+
     copy = f"{message.author.mention} in "
+
+    # If DM message...
     if isinstance(message.channel, discord.channel.DMChannel):
-        copy += "DM: "
+        # If message is from carol, relay message to specified channel if valid
+        if (message.author == carol):
+            print("user is carol")
+            # If message doesn't have a space-separated channel name, invalid
+            if len(message.content.split(" ", 1)) < 2:
+                print(f"Invalid message")
+                return
+
+            # Get channel by specified channel name (first space-separated word)
+            channel_name = message.content.split(" ", 1)[0]
+            channel = discord.utils.get(message.server.channels, name=channel_name)
+
+            # If channel doesn't exist, tell user and return
+            if not channel:
+                print(f"Invalid channel: {channel_name}")
+                carol.send(f"Invalid channel: {channel_name}")
+                return
+            
+            # Send message (everything after first space)
+            await channel.send(message.content.split(" ", 1)[1])
+            return
+
+        # Else, this is a DM from someone else
+        else:
+            copy += "DM: "
+    
+    # If text channel, add channel name to copy
     elif isinstance(message.channel, discord.channel.TextChannel):
         copy += f"#{message.channel.name}: "
+
+    # Else, log that this is a different channel type
     else:
         print("other type of channel")
         return
 
-    copy += f"<br> ```{message.content}```"
+    # Add message content to copy and send to carol
+    copy += f"```{message.content}```"
     print(copy)
-    carol = await bot.fetch_user(549436545019674626)
     await carol.send(copy)
 
 bot.run(TOKEN)
