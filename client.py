@@ -122,7 +122,7 @@ async def on_message(message):
                 return
             
             # Send message (everything after first space)
-            print(f"Sending message: {message.content.split(" ", 1)[1]}")
+            print(f"Sending message: {message.content.split(' ', 1)[1]}")
             await target_channel.send(message.content.split(" ", 1)[1])
             return
 
