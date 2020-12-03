@@ -87,7 +87,7 @@ async def sale(ctx, *args):
     
     await ctx.send(response)
 
-@client.event()
+@client.event
 async def on_message(message):
     await message.author.send("hi")
 
