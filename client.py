@@ -12,6 +12,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 client = discord.Client()
 
+last_channel = None
+
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
@@ -98,32 +100,60 @@ async def on_message(message):
 
     # If DM message...
     if isinstance(message.channel, discord.channel.DMChannel):
+        global last_channel
+
         # If message is from carol, relay message to specified channel if valid
         if (message.author == carol):
+            
             print("user is carol")
-            # If message doesn't have a space-separated channel name, invalid
-            if len(message.content.split(" ", 1)) < 2:
-                print(f"Invalid message")
-                return
 
-            target_channel = None
-            # Get channel by specified channel name (first space-separated word)
-            channel_name = message.content.split(" ", 1)[0]
-            for guild in bot.guilds:
-                for channel in guild.text_channels:
-                    if channel.name == channel_name:
-                        target_channel = channel
+            msg_to_send = ""
+
+            # If message doesn't have a space-separated channel name, use last_channel
+            if len(message.content.split(" ", 1)) < 2:
+                # If no last_channel, return
+                if not last_channel:
+                    print(f"No channel specified/last channel")
+                    await carol.send(f"No valid channel")
+                    return
+
+                print(f"No channel specified. Sending to last channel: {last_channel.name}")
+                msg_to_send = message.content
+                await carol.send(f"#{last_channel.name}")
+                target_channel = last_channel
+            else:
+                msg_to_send = message.content.split(" ", 1)[1]
+
+                # Find channel by specified channel name (first space-separated word)
+                channel_name = message.content.split(" ", 1)[0]
+                target_channel = None
+                found = False
+                for guild in bot.guilds:
+                    for channel in guild.text_channels:
+                        if channel.name == channel_name:
+                            # Update taget_channel and last_channel
+                            target_channel = last_channel = channel
+                            found = True
+                            break
+                    if found:
                         break
 
-            # If channel doesn't exist, tell user and return
-            if not target_channel:
-                print(f"Invalid channel: {channel_name}")
-                await carol.send(f"Invalid channel: {channel_name}")
-                return
+                # If channel doesn't exist, tell user and return
+                if not target_channel:
+                    if not last_channel:
+                        print(f"Invalid channel: {channel_name}")
+                        await carol.send(f"Invalid channel: {channel_name}")
+                        return
+                    else:
+                        print(f"No valid channel specified. Sending to last channel: {last_channel.name}")
+                        msg_to_send = message.content
+                        await carol.send(f"#{last_channel.name}")
+                        target_channel = last_channel
+                    
             
             # Send message (everything after first space)
-            print(f"Sending message: {message.content.split(' ', 1)[1]}")
-            await target_channel.send(message.content.split(" ", 1)[1])
+            print(f"Sending message: {msg_to_send}")
+            await target_channel.send(msg_to_send)
             return
 
         # Else, this is a DM from someone else
