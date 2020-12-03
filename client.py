@@ -87,7 +87,7 @@ async def sale(ctx, *args):
     
     await ctx.send(response)
 
-@client.event
+@bot.event
 async def on_message(message):
     print(f"message was sent: {message.content}")
     await message.author.send("hi")
