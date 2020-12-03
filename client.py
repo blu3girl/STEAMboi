@@ -158,20 +158,26 @@ async def on_message(message):
 
         # Else, this is a DM from someone else
         else:
-            copy += "DM: "
+            # Send dm to carol
+            copy += "DM: ```{message.content}```"
+            print(copy)
+            await carol.send(copy)
     
     # If text channel, add channel name to copy
     elif isinstance(message.channel, discord.channel.TextChannel):
-        copy += f"#{message.channel.name}: "
+        # Send copy to carol if author was not carol
+        if message.author != carol:
+            copy += f"#{message.channel.name}: ```{message.content}```"
+            print(copy)
+            await carol.send(copy)
+
+        # Process any bot commands
+        bot.process_commands(message)
 
     # Else, log that this is a different channel type
     else:
         print("other type of channel")
         return
 
-    # Add message content to copy and send to carol
-    copy += f"```{message.content}```"
-    print(copy)
-    await carol.send(copy)
 
 bot.run(TOKEN)
