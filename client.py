@@ -9,6 +9,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='!')
+client = discord.Client()
 
 @bot.event
 async def on_ready():
@@ -85,7 +86,7 @@ async def sale(ctx, *args):
     
     await ctx.send(response)
 
-@bot.command()
+@client.event()
 async def on_message(message):
     await message.author.send("hi")
 
