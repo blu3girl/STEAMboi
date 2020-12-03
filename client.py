@@ -118,7 +118,7 @@ async def on_message(message):
             # If channel doesn't exist, tell user and return
             if not target_channel:
                 print(f"Invalid channel: {channel_name}")
-                carol.send(f"Invalid channel: {channel_name}")
+                await carol.send(f"Invalid channel: {channel_name}")
                 return
             
             # Send message (everything after first space)
