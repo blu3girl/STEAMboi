@@ -1,7 +1,6 @@
 # client.py
 import os
 import discord
-import logging
 from discord import Embed
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -9,8 +8,6 @@ from bot import getInfo
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
-logging.basicConfig(level=logging.INFO)
 
 bot = commands.Bot(command_prefix='!')
 client = discord.Client()
@@ -92,7 +89,7 @@ async def sale(ctx, *args):
 
 @client.event
 async def on_message(message):
-    logging.info(f"message was sent: {message.content}")
+    print(f"message was sent: {message.content}")
     await message.author.send("hi")
 
 bot.run(TOKEN)
