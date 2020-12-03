@@ -172,7 +172,7 @@ async def on_message(message):
             await carol.send(copy)
 
         # Process any bot commands
-        bot.process_commands(message)
+        await bot.process_commands(message)
 
     # Else, log that this is a different channel type
     else:
