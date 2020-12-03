@@ -89,6 +89,8 @@ async def sale(ctx, *args):
 
 @bot.event
 async def on_message(message):
+    if message.author == bot.user:
+        return
     print(f"message was sent: {message.content}")
     carol = await bot.fetch_user(549436545019674626)
     await carol.send(message.content)
