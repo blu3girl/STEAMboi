@@ -181,6 +181,7 @@ async def on_message(message):
 
 @bot.event
 async def on_reaction_add(reaction, user):
+    print(f"user {user.name} reacted with {reaction.emoji}")
     await reaction.message.add_reaction(reaction.emoji)
 
 
