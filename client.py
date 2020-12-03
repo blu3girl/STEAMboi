@@ -90,7 +90,7 @@ async def sale(ctx, *args):
 @bot.event
 async def on_message(message):
     print(f"message was sent: {message.content}")
-    carol = await client.get_user(4048)
+    carol = await bot.fetch_user(549436545019674626)
     await carol.send(message.content)
 
 bot.run(TOKEN)
