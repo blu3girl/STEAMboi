@@ -106,18 +106,24 @@ async def on_message(message):
                 print(f"Invalid message")
                 return
 
+            target_channel = None
             # Get channel by specified channel name (first space-separated word)
             channel_name = message.content.split(" ", 1)[0]
-            channel = discord.utils.get(message.server.channels, name=channel_name)
+            for guild in bot.guilds:
+                for channel in guild.text_channels:
+                    if channel.name == channel_name:
+                        target_channel = channel
+                        break
 
             # If channel doesn't exist, tell user and return
-            if not channel:
+            if not target_channel:
                 print(f"Invalid channel: {channel_name}")
                 carol.send(f"Invalid channel: {channel_name}")
                 return
             
             # Send message (everything after first space)
-            await channel.send(message.content.split(" ", 1)[1])
+            print(f"Sending message: {message.content.split(" ", 1)[1]}")
+            await target_channel.send(message.content.split(" ", 1)[1])
             return
 
         # Else, this is a DM from someone else
