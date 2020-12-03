@@ -91,8 +91,18 @@ async def sale(ctx, *args):
 async def on_message(message):
     if message.author == bot.user:
         return
-    print(f"message was sent: {message.content}")
+    copy = f"{message.author.mention} in "
+    if isinstance(message.channel, discord.channel.DMChannel):
+        copy += "DM: "
+    elif isinstance(message.channel, discord.channel.TextChannel):
+        copy += f"#{message.channel.name}: "
+    else:
+        print("other type of channel")
+        return
+
+    copy += f"<br> ```{message.content}```"
+    print(copy)
     carol = await bot.fetch_user(549436545019674626)
-    await carol.send(message.content)
+    await carol.send(copy)
 
 bot.run(TOKEN)
