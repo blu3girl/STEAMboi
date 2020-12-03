@@ -159,7 +159,7 @@ async def on_message(message):
         # Else, this is a DM from someone else
         else:
             # Send dm to carol
-            copy += "DM: ```{message.content}```"
+            copy += f"DM: ```{message.content}```"
             print(copy)
             await carol.send(copy)
     
