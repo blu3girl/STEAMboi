@@ -1,5 +1,6 @@
 # client.py
 import os
+import discord
 from discord import Embed
 from dotenv import load_dotenv
 from discord.ext import commands
