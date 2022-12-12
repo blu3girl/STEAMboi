@@ -2,10 +2,11 @@
   "name": "STEAMboi",
   "version": "1.0.0",
   "description": "",
+  "main": "client.py",
   "scripts": {
-    "build": "echo \"No build specified\" && exit 1",
-    "test": "echo \"No test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "python client.py",
+    "start":"python client.py"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,15 @@
   "bugs": {
     "url": "https://github.com/blu3girl/STEAMboi/issues"
   },
-  "homepage": "https://github.com/blu3girl/STEAMboi#readme"
+  "homepage": "https://github.com/blu3girl/STEAMboi#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "discord-interactions": "^3.2.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }
