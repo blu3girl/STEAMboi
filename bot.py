@@ -10,6 +10,7 @@ def getInfo(url):
     products['url']=url
 
     gameDict={}
+
     for price in prices:
         text=price.get_text().replace('\t',"").split('\n')
         text = [t.strip() for t in text if t.strip()!='']
